@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.github.nexlayerlabs</groupId>
         <artifactId>quarkus-cache-sync-parent</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </parent>
 
     <artifactId>quarkus-cache-sync</artifactId>
@@ -17,6 +17,7 @@
         Runtime module: contains all annotations, interceptors, Redis integration,
         cache warmup, and metrics. This is the only module your services depend on.
     </description>
+    <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
     <dependencies>
         <!-- Quarkus core (version managed by BOM in parent) -->
