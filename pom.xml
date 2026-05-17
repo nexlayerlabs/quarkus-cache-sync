@@ -73,33 +73,8 @@
         <module>integration-tests</module>
     </modules>
 
-    <!--
-        WHY MULTIPLE POMS?
-        ==================
-        Quarkus extensions REQUIRE exactly this 3-module structure:
-
-        1. runtime/     → The JAR your users depend on at compile + runtime.
-                          Contains annotations (@Cached, @CacheInvalidate),
-                          interceptors, Redis client, metrics.
-
-        2. deployment/  → Used ONLY at build time by Quarkus build system.
-                          Registers beans, interceptor bindings, and build-time
-                          config. Never ends up in your production artifact.
-                          Users never add this as a dependency directly.
-
-        3. integration-tests/ → Standalone Quarkus app used to test the
-                                 extension in a real container environment.
-
-        This is the same structure used by all official Quarkus extensions
-        (quarkus-redis-client, quarkus-cache, quarkus-scheduler, etc.)
-    -->
-
     <dependencyManagement>
         <dependencies>
-            <!-- Quarkus BOM: manages ALL Quarkus + Jakarta versions -->
-            <!-- This is why jakarta.interceptor-api does NOT need a version:
-                 it is declared inside the BOM and inherited automatically.
-                 Same for quarkus-redis-deployment and all quarkus-* artifacts. -->
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
@@ -137,6 +112,17 @@
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-plugin.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     </configuration>
                 </plugin>
             </plugins>
@@ -190,7 +176,6 @@
                                 <phase>verify</phase>
                                 <goals><goal>sign</goal></goals>
                                 <configuration>
-                                    <!-- Uses GPG key already configured in settings.xml -->
                                     <gpgArguments>
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
@@ -207,7 +192,6 @@
                         <version>${nexus-staging-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <!-- "ossrh" must match the <server id> in your settings.xml -->
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>

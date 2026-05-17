@@ -62,23 +62,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-scheduler</artifactId>
         </dependency>
-
-        <!--
-            ShedLock: distributed lock library.
-            ========
-            Why is it here?
-            When you have 4 pods, @CacheWarmup must run on ONLY ONE pod
-            at startup — not all 4 simultaneously. ShedLock uses Redis
-            (or your DB) to elect a single leader and hold a lock during
-            the warmup window. Other pods detect the lock and skip warmup.
-
-            It is NOT a cron-job scheduler on its own — it is a LOCK
-            that prevents duplicate execution across pods. Your @Scheduled
-            method still triggers on each pod, but only one acquires the
-            lock and runs.
-
-            ShedLock version is NOT in quarkus-bom, so explicit version needed.
-        -->
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>
             <artifactId>shedlock-core</artifactId>
@@ -86,7 +69,7 @@
         </dependency>
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>
-            <artifactId>shedlock-provider-redis-quarkus</artifactId>
+            <artifactId>shedlock-provider-redis-quarkus2</artifactId>
             <version>${shedlock.version}</version>
         </dependency>
 

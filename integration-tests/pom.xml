@@ -25,6 +25,11 @@
         <!-- The extension deployment module (brings runtime transitively) -->
         <dependency>
             <groupId>io.github.nexlayerlabs</groupId>
+            <artifactId>quarkus-cache-sync</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.nexlayerlabs</groupId>
             <artifactId>quarkus-cache-sync-deployment</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
@@ -42,19 +47,6 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!--
-            Testcontainers + Redis:
-            Spins up a real Redis Docker container for your tests.
-            No external Redis required — Docker must be running locally.
-            Quarkus DevServices also auto-starts Redis if Docker is available.
-        -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-test-redis</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- RESTEasy Reactive: provides @Path endpoints used by tests -->
         <dependency>
             <groupId>io.quarkus</groupId>

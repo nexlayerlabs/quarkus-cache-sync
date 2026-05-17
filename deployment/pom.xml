@@ -36,19 +36,9 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc-deployment</artifactId>
         </dependency>
-
-        <!--
-            quarkus-redis-deployment:
-            Version is managed by the quarkus-bom in the parent POM.
-            This was previously causing "missing version" errors because it was
-            listed without a <version> tag outside of a BOM import. The fix is:
-            declare the BOM in <dependencyManagement> of the parent, and then
-            list this dependency here WITHOUT a <version> tag — Maven resolves
-            it from the BOM automatically.
-        -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-redis-deployment</artifactId>
+            <artifactId>quarkus-redis-client-deployment</artifactId>
         </dependency>
     </dependencies>
 </project>

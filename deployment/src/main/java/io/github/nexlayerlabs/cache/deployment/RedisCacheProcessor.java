@@ -52,9 +52,14 @@ public class RedisCacheProcessor {
     @BuildStep
     InterceptorBindingRegistrarBuildItem registerInterceptorBindings() {
         return new InterceptorBindingRegistrarBuildItem(
-                (InterceptorBindingRegistrar.RegistrationContext context) -> {
-                    context.registerInterceptorBinding(Cached.class);
-                    context.registerInterceptorBinding(CacheInvalidate.class);
+                new InterceptorBindingRegistrar() {
+                    @Override
+                    public java.util.List<InterceptorBinding> getAdditionalBindings() {
+                        return java.util.List.of(
+                                InterceptorBinding.of(Cached.class),
+                                InterceptorBinding.of(CacheInvalidate.class)
+                        );
+                    }
                 }
         );
     }
