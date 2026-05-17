@@ -6,7 +6,7 @@
 [![Quarkus](https://img.shields.io/badge/Quarkus-3.8.0-blueviolet?logo=quarkus)](https://quarkus.io)
 [![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)](https://openjdk.org/projects/jdk/21/)
 
-**Distributed cache orchestration** for Quarkus microservices running on Kubernetes and OpenShift.
+Production-ready **distributed cache orchestration** for Quarkus microservices running on Kubernetes and OpenShift.
 
 Designed for teams running **multiple services with multiple pods each** — where existing cache libraries leave you managing cross-pod invalidation, cache stampedes, and cold-start spikes manually.
 
