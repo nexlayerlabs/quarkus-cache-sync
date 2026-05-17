@@ -18,6 +18,7 @@
         and build-time configuration. This module is NEVER a dependency of your
         application services — it is used internally by the Quarkus build system.
     </description>
+    <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
     <dependencies>
         <!-- Runtime module must come first -->

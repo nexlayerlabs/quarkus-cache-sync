@@ -20,6 +20,7 @@
 
         Run with: mvn verify -pl integration-tests
     </description>
+    <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
     <dependencies>
         <!-- The extension deployment module (brings runtime transitively) -->
