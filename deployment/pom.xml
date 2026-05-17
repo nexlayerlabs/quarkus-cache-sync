@@ -20,6 +20,11 @@
     </description>
     <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <central.publishing.skip>true</central.publishing.skip>
+    </properties>
+
     <dependencies>
         <!-- Runtime module must come first -->
         <dependency>
