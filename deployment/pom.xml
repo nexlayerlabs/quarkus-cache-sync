@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.nexlayerlabs</groupId>
+        <artifactId>quarkus-cache-sync-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>quarkus-cache-sync-deployment</artifactId>
+    <name>Quarkus Pod Cache - Deployment</name>
+    <description>
+        Build-time Quarkus processor. Registers CDI beans, interceptor bindings,
+        and build-time configuration. This module is NEVER a dependency of your
+        application services — it is used internally by the Quarkus build system.
+    </description>
+
+    <dependencies>
+        <!-- Runtime module must come first -->
+        <dependency>
+            <groupId>io.github.nexlayerlabs</groupId>
+            <artifactId>quarkus-cache-sync</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Quarkus build-time APIs (version managed by BOM) -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc-deployment</artifactId>
+        </dependency>
+
+        <!--
+            quarkus-redis-deployment:
+            Version is managed by the quarkus-bom in the parent POM.
+            This was previously causing "missing version" errors because it was
+            listed without a <version> tag outside of a BOM import. The fix is:
+            declare the BOM in <dependencyManagement> of the parent, and then
+            list this dependency here WITHOUT a <version> tag — Maven resolves
+            it from the BOM automatically.
+        -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-redis-deployment</artifactId>
+        </dependency>
+    </dependencies>
+</project>

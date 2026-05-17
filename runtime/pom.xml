@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.nexlayerlabs</groupId>
+        <artifactId>quarkus-cache-sync-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>quarkus-cache-sync</artifactId>
+    <name>Quarkus Pod Cache - Runtime</name>
+    <description>
+        Runtime module: contains all annotations, interceptors, Redis integration,
+        cache warmup, and metrics. This is the only module your services depend on.
+    </description>
+
+    <dependencies>
+        <!-- Quarkus core (version managed by BOM in parent) -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core</artifactId>
+        </dependency>
+
+        <!-- CDI / ArC: needed for @ApplicationScoped, @Inject, interceptors -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-arc</artifactId>
+        </dependency>
+
+        <!-- Redis reactive client (includes Lettuce, managed by BOM) -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-redis-client</artifactId>
+        </dependency>
+
+        <!-- Jakarta Interceptor API: @InterceptorBinding, @AroundInvoke
+             Version is managed by quarkus-bom — no version tag needed -->
+        <dependency>
+            <groupId>jakarta.interceptor</groupId>
+            <artifactId>jakarta.interceptor-api</artifactId>
+        </dependency>
+
+        <!-- Jakarta CDI API: @ApplicationScoped, @Inject
+             Version is managed by quarkus-bom -->
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+        </dependency>
+
+        <!-- Micrometer + Prometheus for /metrics endpoint -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <!-- Quarkus Scheduler: used by @CacheWarmup to run warmup on startup -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-scheduler</artifactId>
+        </dependency>
+
+        <!--
+            ShedLock: distributed lock library.
+            ========
+            Why is it here?
+            When you have 4 pods, @CacheWarmup must run on ONLY ONE pod
+            at startup — not all 4 simultaneously. ShedLock uses Redis
+            (or your DB) to elect a single leader and hold a lock during
+            the warmup window. Other pods detect the lock and skip warmup.
+
+            It is NOT a cron-job scheduler on its own — it is a LOCK
+            that prevents duplicate execution across pods. Your @Scheduled
+            method still triggers on each pod, but only one acquires the
+            lock and runs.
+
+            ShedLock version is NOT in quarkus-bom, so explicit version needed.
+        -->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-core</artifactId>
+            <version>${shedlock.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-redis-quarkus</artifactId>
+            <version>${shedlock.version}</version>
+        </dependency>
+
+        <!-- Jackson for serialization (managed by BOM) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Test scope -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

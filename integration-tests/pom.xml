@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.nexlayerlabs</groupId>
+        <artifactId>quarkus-cache-sync-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>quarkus-cache-sync-integration-tests</artifactId>
+    <name>Quarkus Pod Cache - Integration Tests</name>
+    <description>
+        Standalone Quarkus application used to test the extension locally.
+        Uses Testcontainers to spin up a real Redis container — NO need to
+        point this at your production services.
+
+        Run with: mvn verify -pl integration-tests
+    </description>
+
+    <dependencies>
+        <!-- The extension deployment module (brings runtime transitively) -->
+        <dependency>
+            <groupId>io.github.nexlayerlabs</groupId>
+            <artifactId>quarkus-cache-sync-deployment</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+            <type>pom</type>
+        </dependency>
+
+        <!-- Quarkus test support -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+            Testcontainers + Redis:
+            Spins up a real Redis Docker container for your tests.
+            No external Redis required — Docker must be running locally.
+            Quarkus DevServices also auto-starts Redis if Docker is available.
+        -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-test-redis</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- RESTEasy Reactive: provides @Path endpoints used by tests -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>generate-code</goal>
+                            <goal>generate-code-tests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
