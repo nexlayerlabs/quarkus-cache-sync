@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.github.nexlayerlabs</groupId>
         <artifactId>quarkus-cache-sync-parent</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
 
     <artifactId>quarkus-cache-sync-integration-tests</artifactId>
@@ -32,6 +32,7 @@
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
+        <central.publishing.skip>true</central.publishing.skip>
     </properties>
 
     <dependencies>
