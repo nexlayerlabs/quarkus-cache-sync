@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.github.nexlayerlabs</groupId>
         <artifactId>quarkus-cache-sync-parent</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.5</version>
     </parent>
 
     <artifactId>quarkus-cache-sync</artifactId>
@@ -25,6 +25,11 @@
         <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <maven.deploy.skip>false</maven.deploy.skip>
+        <skipPublishing>false</skipPublishing>
+    </properties>
 
     <dependencies>
         <!-- Quarkus core (version managed by BOM in parent) -->
