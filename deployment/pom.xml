@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>quarkus-cache-sync-deployment</artifactId>
-    <name>Quarkus Pod Cache - Deployment</name>
+    <name>Quarkus Cache Sync - Deployment</name>
     <description>
         Build-time Quarkus processor. Registers CDI beans, interceptor bindings,
         and build-time configuration. This module is NEVER a dependency of your
@@ -21,7 +21,6 @@
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
-        <central.publishing.skip>true</central.publishing.skip>
         <skipPublishing>true</skipPublishing>
     </properties>
 

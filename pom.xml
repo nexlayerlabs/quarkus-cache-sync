@@ -54,18 +54,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Allow deploy on parent module -->
-        <maven.deploy.skip>false</maven.deploy.skip>
-
         <!-- Core Versions -->
         <quarkus.version>3.8.0</quarkus.version>
         <shedlock.version>5.9.1</shedlock.version>
-
-        <!-- Dependency Versions (Jakarta, Jackson, Rest-Assured) -->
-        <jakarta.interceptor.version>2.1.0</jakarta.interceptor.version>
-        <jakarta.cdi.version>4.0.1</jakarta.cdi.version>
-        <jackson.version>2.16.1</jackson.version>
-        <rest-assured.version>5.4.0</rest-assured.version>
 
         <!-- Plugin Versions -->
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -123,16 +114,58 @@
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing-plugin.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <publishingServerId>central</publishingServerId>
+                        <autoPublish>true</autoPublish>
+                        <waitUntil>published</waitUntil>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <profiles>
+        <!-- Maven Central release profile: activated with -P release -->
         <profile>
             <id>release</id>
             <build>
                 <plugins>
-                    <!-- GPG sign the parent POM -->
+                    <!-- Attach source JAR (required by Maven Central) -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals><goal>jar-no-fork</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Attach Javadoc JAR (required by Maven Central) -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <configuration>
+                            <release>21</release>
+                            <doclint>none</doclint>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals><goal>jar</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- GPG sign all artifacts (required by Maven Central) -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -152,7 +185,7 @@
                         </executions>
                     </plugin>
 
-                    <!-- Publish parent POM to Maven Central -->
+                    <!-- Central Publishing + auto-release -->
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
@@ -161,6 +194,7 @@
                         <configuration>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>

@@ -19,22 +19,6 @@
     </description>
     <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>nexlayerlabs</id>
-            <name>NexLayerLabs</name>
-            <url>https://github.com/nexlayerlabs</url>
-        </developer>
-    </developers>
-
     <scm>
         <connection>scm:git:git://github.com/nexlayerlabs/quarkus-cache-sync.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/nexlayerlabs/quarkus-cache-sync.git</developerConnection>
@@ -42,64 +26,49 @@
         <tag>HEAD</tag>
     </scm>
 
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/nexlayerlabs/quarkus-cache-sync/issues</url>
-    </issueManagement>
-
-    <properties>
-        <maven.deploy.skip>false</maven.deploy.skip>
-    </properties>
-
-
     <dependencies>
-        <!-- Quarkus core -->
+        <!-- Quarkus core (version managed by BOM in parent) -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-core</artifactId>
-            <version>${quarkus.version}</version>
         </dependency>
 
         <!-- CDI / ArC: needed for @ApplicationScoped, @Inject, interceptors -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
-            <version>${quarkus.version}</version>
         </dependency>
 
-        <!-- Redis reactive client -->
+        <!-- Redis reactive client (includes Lettuce, managed by BOM) -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-redis-client</artifactId>
-            <version>${quarkus.version}</version>
         </dependency>
 
-        <!-- Jakarta Interceptor API: @InterceptorBinding, @AroundInvoke -->
+        <!-- Jakarta Interceptor API: @InterceptorBinding, @AroundInvoke
+             Version is managed by quarkus-bom — no version tag needed -->
         <dependency>
             <groupId>jakarta.interceptor</groupId>
             <artifactId>jakarta.interceptor-api</artifactId>
-            <version>${jakarta.interceptor.version}</version>
         </dependency>
 
-        <!-- Jakarta CDI API: @ApplicationScoped, @Inject -->
+        <!-- Jakarta CDI API: @ApplicationScoped, @Inject
+             Version is managed by quarkus-bom -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${jakarta.cdi.version}</version>
         </dependency>
 
         <!-- Micrometer + Prometheus for /metrics endpoint -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
-            <version>${quarkus.version}</version>
         </dependency>
 
         <!-- Quarkus Scheduler: used by @CacheWarmup to run warmup on startup -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-scheduler</artifactId>
-            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>
@@ -112,104 +81,22 @@
             <version>${shedlock.version}</version>
         </dependency>
 
-        <!-- Jackson for serialization -->
+        <!-- Jackson for serialization (managed by BOM) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Test scope -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
-            <version>${quarkus.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!-- Attach source JAR (required by Maven Central) -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals><goal>jar-no-fork</goal></goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Attach Javadoc JAR (required by Maven Central) -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin.version}</version>
-                        <configuration>
-                            <release>21</release>
-                            <doclint>none</doclint>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals><goal>jar</goal></goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- GPG sign all artifacts (required by Maven Central) -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals><goal>sign</goal></goals>
-                                <configuration>
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Central Publishing + auto-release -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>${central-publishing-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <url>https://central.sonatype.com/</url>
-        </repository>
-    </distributionManagement>
 </project>

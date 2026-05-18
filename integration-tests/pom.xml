@@ -12,7 +12,7 @@
     </parent>
 
     <artifactId>quarkus-cache-sync-integration-tests</artifactId>
-    <name>Quarkus Pod Cache - Integration Tests</name>
+    <name>Quarkus Cache Sync - Integration Tests</name>
     <description>
         Standalone Quarkus application used to test the extension locally.
         Uses Testcontainers to spin up a real Redis container — NO need to
@@ -23,7 +23,6 @@
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
-        <central.publishing.skip>true</central.publishing.skip>
         <skipPublishing>true</skipPublishing>
     </properties>
 
