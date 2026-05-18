@@ -20,10 +20,18 @@
 
         Run with: mvn verify -pl integration-tests
     </description>
+    <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/nexlayerlabs/quarkus-cache-sync.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/nexlayerlabs/quarkus-cache-sync.git</developerConnection>
+        <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
-        <skipPublishing>true</skipPublishing>
+        <maven.install.skip>true</maven.install.skip>
     </properties>
 
     <dependencies>

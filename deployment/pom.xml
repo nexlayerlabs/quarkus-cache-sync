@@ -18,11 +18,14 @@
         and build-time configuration. This module is NEVER a dependency of your
         application services — it is used internally by the Quarkus build system.
     </description>
+    <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
-    <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <skipPublishing>true</skipPublishing>
-    </properties>
+    <scm>
+        <connection>scm:git:git://github.com/nexlayerlabs/quarkus-cache-sync.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/nexlayerlabs/quarkus-cache-sync.git</developerConnection>
+        <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <dependencies>
         <!-- Runtime module must come first -->

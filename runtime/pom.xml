@@ -26,11 +26,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <properties>
-        <maven.deploy.skip>false</maven.deploy.skip>
-        <skipPublishing>false</skipPublishing>
-    </properties>
-
     <dependencies>
         <!-- Quarkus core (version managed by BOM in parent) -->
         <dependency>
