@@ -27,7 +27,7 @@ jobs:
           cache: maven
 
       - name: Build (all modules, skip tests)
-        run: mvn clean install -DskipTests -B -pl '!integration-tests'
+        run: mvn clean install -DskipTests -B
 
       - name: Run integration tests (Docker + Testcontainers)
         run: mvn verify -B

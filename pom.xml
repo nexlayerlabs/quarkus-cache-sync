@@ -7,7 +7,7 @@
 
     <groupId>io.github.nexlayerlabs</groupId>
     <artifactId>quarkus-cache-sync-parent</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <packaging>pom</packaging>
 
     <name>Quarkus Cache Sync Parent</name>
@@ -114,58 +114,34 @@
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>
+                <!--
+                    central-publishing-maven-plugin declared here WITHOUT extensions=true.
+                    extensions=true is ONLY set inside each module's own release profile.
+                    This prevents the plugin from auto-activating on ALL modules.
+                -->
                 <plugin>
                     <groupId>org.sonatype.central</groupId>
                     <artifactId>central-publishing-maven-plugin</artifactId>
                     <version>${central-publishing-plugin.version}</version>
-                    <extensions>true</extensions>
                     <configuration>
                         <publishingServerId>central</publishingServerId>
                         <autoPublish>true</autoPublish>
-                        <waitUntil>published</waitUntil>
                     </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
+    <!--
+        Parent release profile: only GPG signing.
+        Source + Javadoc + central-publishing are in runtime and deployment profiles only.
+        Parent POM (packaging=pom) does not produce a JAR so no sources/javadoc needed.
+    -->
     <profiles>
-        <!-- Maven Central release profile: activated with -P release -->
         <profile>
             <id>release</id>
             <build>
                 <plugins>
-                    <!-- Attach source JAR (required by Maven Central) -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>${maven-source-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals><goal>jar-no-fork</goal></goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Attach Javadoc JAR (required by Maven Central) -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin.version}</version>
-                        <configuration>
-                            <release>21</release>
-                            <doclint>none</doclint>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals><goal>jar</goal></goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- GPG sign all artifacts (required by Maven Central) -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -183,19 +159,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-
-                    <!-- Central Publishing + auto-release -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>${central-publishing-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

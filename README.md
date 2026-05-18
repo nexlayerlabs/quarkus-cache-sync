@@ -47,7 +47,7 @@ Add to your service `pom.xml`:
 <dependency>
     <groupId>io.github.nexlayerlabs</groupId>
     <artifactId>quarkus-cache-sync</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 </dependency>
 ```
 
