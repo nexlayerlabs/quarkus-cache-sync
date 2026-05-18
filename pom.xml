@@ -142,6 +142,7 @@
             <id>release</id>
             <build>
                 <plugins>
+                    <!-- GPG signing -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -159,6 +160,18 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+
+                    <!-- Central publishing for parent POM -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
