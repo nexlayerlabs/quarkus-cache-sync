@@ -61,6 +61,12 @@
         <quarkus.version>3.8.0</quarkus.version>
         <shedlock.version>5.9.1</shedlock.version>
 
+        <!-- Dependency Versions (Jakarta, Jackson, Rest-Assured) -->
+        <jakarta.interceptor.version>2.1.0</jakarta.interceptor.version>
+        <jakarta.cdi.version>4.0.1</jakarta.cdi.version>
+        <jackson.version>2.16.1</jackson.version>
+        <rest-assured.version>5.4.0</rest-assured.version>
+
         <!-- Plugin Versions -->
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>

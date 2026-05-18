@@ -48,39 +48,12 @@
     </issueManagement>
 
     <properties>
-        <!-- Allow deploy on runtime module only -->
         <maven.deploy.skip>false</maven.deploy.skip>
-
-        <!-- Version properties -->
-        <quarkus.version>3.8.0</quarkus.version>
-        <shedlock.version>5.9.1</shedlock.version>
-        <jakarta.interceptor.version>2.1.0</jakarta.interceptor.version>
-        <jakarta.cdi.version>4.0.1</jakarta.cdi.version>
-        <jackson.version>2.16.1</jackson.version>
-        <rest-assured.version>5.4.0</rest-assured.version>
-
-        <!-- Plugin Versions -->
-        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-        <maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
-        <central-publishing-plugin.version>0.5.0</central-publishing-plugin.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Import Quarkus BOM for version management -->
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
-        <!-- Quarkus core (version managed by BOM) -->
+        <!-- Quarkus core -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-core</artifactId>
@@ -94,7 +67,7 @@
             <version>${quarkus.version}</version>
         </dependency>
 
-        <!-- Redis reactive client (includes Lettuce, managed by BOM) -->
+        <!-- Redis reactive client -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-redis-client</artifactId>
@@ -139,7 +112,7 @@
             <version>${shedlock.version}</version>
         </dependency>
 
-        <!-- Jackson for serialization (managed by BOM) -->
+        <!-- Jackson for serialization -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
