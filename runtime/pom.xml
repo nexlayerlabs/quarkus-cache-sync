@@ -54,6 +54,10 @@
         <!-- Version properties -->
         <quarkus.version>3.8.0</quarkus.version>
         <shedlock.version>5.9.1</shedlock.version>
+        <jakarta.interceptor.version>2.1.0</jakarta.interceptor.version>
+        <jakarta.cdi.version>4.0.1</jakarta.cdi.version>
+        <jackson.version>2.16.1</jackson.version>
+        <rest-assured.version>5.4.0</rest-assured.version>
 
         <!-- Plugin Versions -->
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
@@ -76,48 +80,53 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Quarkus core (version managed by BOM in parent) -->
+        <!-- Quarkus core (version managed by BOM) -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-core</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
 
         <!-- CDI / ArC: needed for @ApplicationScoped, @Inject, interceptors -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
 
         <!-- Redis reactive client (includes Lettuce, managed by BOM) -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-redis-client</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
 
-        <!-- Jakarta Interceptor API: @InterceptorBinding, @AroundInvoke
-             Version is managed by quarkus-bom — no version tag needed -->
+        <!-- Jakarta Interceptor API: @InterceptorBinding, @AroundInvoke -->
         <dependency>
             <groupId>jakarta.interceptor</groupId>
             <artifactId>jakarta.interceptor-api</artifactId>
+            <version>${jakarta.interceptor.version}</version>
         </dependency>
 
-        <!-- Jakarta CDI API: @ApplicationScoped, @Inject
-             Version is managed by quarkus-bom -->
+        <!-- Jakarta CDI API: @ApplicationScoped, @Inject -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>${jakarta.cdi.version}</version>
         </dependency>
 
         <!-- Micrometer + Prometheus for /metrics endpoint -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
 
         <!-- Quarkus Scheduler: used by @CacheWarmup to run warmup on startup -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-scheduler</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>
@@ -134,17 +143,20 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Test scope -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
+            <version>${quarkus.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
