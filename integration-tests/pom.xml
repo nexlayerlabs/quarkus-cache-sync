@@ -23,7 +23,6 @@
 
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <central.publishing.skip>true</central.publishing.skip>
     </properties>
 
