@@ -10,11 +10,11 @@
     <version>1.0.4</version>
     <packaging>pom</packaging>
 
-    <name>Quarkus Pod Cache Parent</name>
+    <name>Quarkus Cache Sync Parent</name>
     <description>
-        Production-ready distributed cache orchestration for Quarkus microservices
-        running on Kubernetes/OpenShift. Features cross-pod invalidation, stampede
-        prevention, pod-aware warmup, and built-in metrics.
+        Distributed cache orchestration for Quarkus microservices running on
+        Kubernetes/OpenShift. Features cross-pod invalidation, stampede prevention,
+        pod-aware warmup, and built-in metrics.
     </description>
     <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
@@ -69,6 +69,8 @@
 
     <modules>
         <module>runtime</module>
+        <module>deployment</module>
+        <module>integration-tests</module>
     </modules>
 
     <dependencyManagement>
@@ -110,17 +112,6 @@
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         </systemPropertyVariables>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.central</groupId>
-                    <artifactId>central-publishing-maven-plugin</artifactId>
-                    <version>${central-publishing-plugin.version}</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <publishingServerId>central</publishingServerId>
-                        <autoPublish>true</autoPublish>
-                        <waitUntil>published</waitUntil>
                     </configuration>
                 </plugin>
             </plugins>
@@ -183,18 +174,6 @@
                         </executions>
                     </plugin>
 
-                    <!-- Central Publishing + auto-release -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>${central-publishing-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>

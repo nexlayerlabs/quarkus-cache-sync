@@ -12,16 +12,18 @@
     </parent>
 
     <artifactId>quarkus-cache-sync</artifactId>
-    <name>Quarkus Pod Cache - Runtime</name>
+    <name>Quarkus Cache Sync - Runtime</name>
     <description>
         Runtime module: contains all annotations, interceptors, Redis integration,
         cache warmup, and metrics. This is the only module your services depend on.
     </description>
+    <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
 
     <scm>
         <connection>scm:git:git://github.com/nexlayerlabs/quarkus-cache-sync.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/nexlayerlabs/quarkus-cache-sync.git</developerConnection>
         <url>https://github.com/nexlayerlabs/quarkus-cache-sync</url>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
@@ -97,4 +99,25 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
