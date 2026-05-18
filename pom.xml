@@ -7,7 +7,7 @@
 
     <groupId>io.github.nexlayerlabs</groupId>
     <artifactId>quarkus-cache-sync-parent</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>pom</packaging>
 
     <name>Quarkus Cache Sync Parent</name>
