@@ -26,6 +26,11 @@
         <tag>HEAD</tag>
     </scm>
 
+    <properties>
+        <!-- Allow deploy on runtime module only -->
+        <maven.deploy.skip>false</maven.deploy.skip>
+    </properties>
+
     <dependencies>
         <!-- Quarkus core (version managed by BOM in parent) -->
         <dependency>
@@ -120,4 +125,11 @@
             </build>
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <url>https://central.sonatype.com/</url>
+        </repository>
+    </distributionManagement>
 </project>

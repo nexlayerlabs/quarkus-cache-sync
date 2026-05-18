@@ -54,6 +54,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <!-- Skip default maven-deploy-plugin on all modules by default -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+
         <!-- Core Versions -->
         <quarkus.version>3.8.0</quarkus.version>
         <shedlock.version>5.9.1</shedlock.version>
@@ -179,10 +182,4 @@
         </profile>
     </profiles>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <url>https://central.sonatype.com/</url>
-        </repository>
-    </distributionManagement>
 </project>
