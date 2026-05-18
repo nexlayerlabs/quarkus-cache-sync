@@ -27,7 +27,7 @@ jobs:
           cache: maven
 
       - name: Build (all modules, skip tests)
-        run: mvn clean install -DskipTests -B -pl '!integration-tests'
+        run: mvn clean install -DskipTests -B
 
       - name: Run integration tests (Docker + Testcontainers)
         run: mvn verify -B
@@ -67,7 +67,7 @@ jobs:
           gpg-passphrase:  MAVEN_GPG_PASSPHRASE
 
       - name: Publish to Maven Central
-        run: mvn clean deploy -P release -DskipTests -B
+        run: mvn clean deploy -P release -DskipTests -B -pl '!integration-tests'
         env:
           MAVEN_USERNAME:      ${{ secrets.SONATYPE_USERNAME }}
           MAVEN_PASSWORD:      ${{ secrets.SONATYPE_PASSWORD }}
